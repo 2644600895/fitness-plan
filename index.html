@@ -94,6 +94,115 @@
 
     footer { text-align: center; padding: 30px; color: #a0aec0; font-size: 0.82rem; }
 
+    /* ===== 打卡区域 ===== */
+    .checkin-bar {
+      max-width: 900px; margin: 0 auto 0; padding: 0 16px 20px;
+      display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+    }
+    .checkin-btn {
+      flex: 1; min-width: 200px;
+      padding: 14px 20px; border: none; border-radius: 14px;
+      color: white; font-size: 0.95rem; font-weight: 700;
+      cursor: pointer; transition: transform 0.15s, opacity 0.15s;
+      background: linear-gradient(135deg,#667eea,#764ba2);
+      box-shadow: 0 4px 14px rgba(102,126,234,0.4);
+    }
+    .checkin-btn:hover:not(:disabled) { transform: translateY(-2px); }
+    .checkin-btn:disabled { opacity: 0.75; cursor: default; }
+    .report-btn {
+      padding: 14px 18px; border: none; border-radius: 14px;
+      background: white; color: #667eea; font-size: 0.9rem; font-weight: 700;
+      cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: box-shadow 0.15s, transform 0.15s;
+      white-space: nowrap;
+    }
+    .report-btn:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.12); transform: translateY(-1px); }
+
+    /* Toast */
+    .checkin-toast {
+      position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px);
+      background: linear-gradient(135deg,#667eea,#764ba2);
+      color: white; padding: 12px 24px; border-radius: 30px;
+      font-size: 0.9rem; font-weight: 600;
+      box-shadow: 0 8px 24px rgba(102,126,234,0.5);
+      opacity: 0; transition: opacity 0.3s, transform 0.3s;
+      pointer-events: none; z-index: 2000; white-space: nowrap;
+    }
+    .checkin-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ===== 打卡日历 ===== */
+    .calendar-wrap {
+      max-width: 900px; margin: 0 auto; padding: 0 16px 24px;
+    }
+    .calendar-box {
+      background: white; border-radius: 16px; padding: 18px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+    .cal-nav {
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;
+    }
+    .cal-nav-btn {
+      width: 32px; height: 32px; border-radius: 50%; border: none;
+      background: #f0f4f8; color: #4a5568; font-size: 1rem;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s;
+    }
+    .cal-nav-btn:hover { background: #e2e8f0; }
+    #calTitle { font-weight: 700; font-size: 1rem; color: #2d3748; }
+    .cal-grid {
+      display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px;
+    }
+    .cal-head { text-align: center; font-size: 0.72rem; color: #a0aec0; font-weight: 600; padding: 4px 0; }
+    .cal-day {
+      aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+      border-radius: 50%; font-size: 0.8rem; color: #4a5568;
+      cursor: default;
+    }
+    .cal-today { background: #ebf4ff; color: #3182ce; font-weight: 700; }
+    .cal-done  { background: linear-gradient(135deg,#667eea,#764ba2); color: white; font-weight: 700; }
+    .cal-done.cal-today { background: linear-gradient(135deg,#48bb78,#38a169); }
+    .cal-summary {
+      display: flex; gap: 20px; margin-top: 14px; padding-top: 14px;
+      border-top: 1px solid #f0f4f8;
+    }
+    .cal-sum-item { display: flex; align-items: center; gap: 6px; font-size: 0.82rem; color: #718096; }
+    .cal-sum-num { font-size: 1.1rem; font-weight: 700; color: #667eea; }
+
+    /* ===== 月度报告弹窗 ===== */
+    .report-modal {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.6); backdrop-filter: blur(6px);
+      z-index: 1200; justify-content: center; align-items: center; padding: 16px;
+    }
+    .report-modal.show { display: flex; animation: modalIn 0.25s cubic-bezier(.34,1.56,.64,1); }
+    .report-box {
+      background: white; border-radius: 20px; width: 100%; max-width: 420px;
+      max-height: 85vh; overflow-y: auto; padding: 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    }
+    .report-close-btn {
+      float: right; background: #f0f4f8; border: none; border-radius: 50%;
+      width: 28px; height: 28px; cursor: pointer; font-size: 0.95rem;
+      display: flex; align-items: center; justify-content: center; color: #718096;
+    }
+    .report-header { font-size: 1.05rem; font-weight: 700; color: #2d3748; margin-bottom: 16px; }
+    .report-stats { display: flex; gap: 10px; margin-bottom: 18px; }
+    .report-stat {
+      flex: 1; background: #f7fafc; border-radius: 12px; padding: 12px 8px; text-align: center;
+    }
+    .rs-num { font-size: 1.5rem; font-weight: 800; color: #667eea; }
+    .rs-label { font-size: 0.72rem; color: #718096; margin-top: 2px; }
+    .report-sub { font-weight: 700; font-size: 0.85rem; color: #4a5568; margin: 14px 0 8px; }
+    .report-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .report-table th { background: #f7fafc; padding: 7px 10px; text-align: left; color: #718096; font-weight: 600; }
+    .report-table td { padding: 7px 10px; border-top: 1px solid #f0f4f8; color: #2d3748; }
+    .report-dates { display: flex; flex-wrap: wrap; gap: 6px; }
+    .report-date-tag {
+      background: linear-gradient(135deg,#667eea,#764ba2); color: white;
+      border-radius: 20px; padding: 4px 10px; font-size: 0.75rem; font-weight: 600;
+    }
+    .report-empty { text-align: center; color: #a0aec0; padding: 20px; font-size: 0.9rem; }
+
     /* ========== 倒计时悬浮按钮 ========== */
     .timer-fab {
       position: fixed;
@@ -636,6 +745,40 @@
   </div>
 </div>
 
+<!-- 打卡按钮区 -->
+<div class="checkin-bar">
+  <button class="checkin-btn" id="checkinBtn" onclick="doCheckin()">📅 完成今日训练·打卡</button>
+  <button class="report-btn" onclick="showReport()">📊 月度报告</button>
+</div>
+
+<!-- 打卡日历 -->
+<div class="calendar-wrap">
+  <div class="section-title">🗓 打卡日历</div>
+  <div class="calendar-box">
+    <div class="cal-nav">
+      <button class="cal-nav-btn" onclick="calPrev()">&#8249;</button>
+      <span id="calTitle"></span>
+      <button class="cal-nav-btn" onclick="calNext()">&#8250;</button>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+    <div class="cal-summary">
+      <div class="cal-sum-item"><span class="cal-sum-num" id="calMonthCount">0</span>本月训练次</div>
+      <div class="cal-sum-item"><span class="cal-sum-num" id="calTotalCount">0</span>累计打卡</div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="checkin-toast" id="checkinToast">🎉 打卡成功！保持努力！</div>
+
+<!-- 月度报告弹窗 -->
+<div class="report-modal" id="reportModal" onclick="if(event.target===this)closeReport()">
+  <div class="report-box">
+    <button class="report-close-btn" onclick="closeReport()">&#10005;</button>
+    <div id="reportContent"></div>
+  </div>
+</div>
+
 <footer>🏠 家庭健身计划 · 减脂增肌塑形版 · 视频来自B站男士居家增肌专项教学</footer>
 
 <script>
@@ -759,6 +902,146 @@
     document.getElementById('fill-' + day).style.width = Math.round(done/all*100) + '%';
     document.getElementById('prog-' + day).textContent = done + ' / ' + all + ' 动作';
   }
+
+  /* ========= 打卡 & Gist 数据存储 ========= */
+  var GIST_TOKEN = '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';
+  var GIST_ID    = 'f069cfa38ed58d882958804a3fcf5e5b';
+  var GIST_FILE  = 'checkin.json';
+  var checkinData = { checkins: [] };
+
+  function today() {
+    var d = new Date();
+    return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  }
+
+  function loadCheckins() {
+    fetch('https://api.github.com/gists/' + GIST_ID, {
+      headers: { 'Authorization': 'token ' + GIST_TOKEN, 'User-Agent': 'fitness-plan' }
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      try { checkinData = JSON.parse(data.files[GIST_FILE].content); }
+      catch(e) { checkinData = { checkins: [] }; }
+      renderCalendar(); renderCheckinBtn();
+    })
+    .catch(function(){ renderCalendar(); renderCheckinBtn(); });
+  }
+
+  function saveCheckins(cb) {
+    var files = {};
+    files[GIST_FILE] = { content: JSON.stringify(checkinData, null, 2) };
+    fetch('https://api.github.com/gists/' + GIST_ID, {
+      method: 'PATCH',
+      headers: { 'Authorization': 'token ' + GIST_TOKEN, 'Content-Type': 'application/json', 'User-Agent': 'fitness-plan' },
+      body: JSON.stringify({ files: files })
+    })
+    .then(function(){ if(cb) cb(); })
+    .catch(function(){ alert('保存失败，请检查网络'); });
+  }
+
+  function todayChecked() {
+    var t = today();
+    return checkinData.checkins.some(function(c){ return c.date === t; });
+  }
+
+  function doCheckin() {
+    if (todayChecked()) { alert('今天已经打卡啦 🎉'); return; }
+    var panel = document.querySelector('.day-panel.active');
+    var dayName = panel ? panel.querySelector('.day-info h3').textContent : '训练';
+    var allEx  = panel ? panel.querySelectorAll('.ex-check').length : 0;
+    var doneEx = panel ? panel.querySelectorAll('.ex-check.done').length : 0;
+    checkinData.checkins.push({ date: today(), day: dayName, done: doneEx, total: allEx });
+    var btn = document.getElementById('checkinBtn');
+    btn.disabled = true; btn.textContent = '保存中...';
+    saveCheckins(function(){ renderCheckinBtn(); renderCalendar(); showCheckinToast(); });
+  }
+
+  function renderCheckinBtn() {
+    var btn = document.getElementById('checkinBtn');
+    if (!btn) return;
+    if (todayChecked()) {
+      btn.textContent = '✅ 今日已打卡'; btn.disabled = true;
+      btn.style.background = 'linear-gradient(135deg,#68d391,#48bb78)';
+    } else {
+      btn.textContent = '📅 完成今日训练·打卡'; btn.disabled = false;
+      btn.style.background = 'linear-gradient(135deg,#667eea,#764ba2)';
+    }
+  }
+
+  function showCheckinToast() {
+    var t = document.getElementById('checkinToast');
+    t.classList.add('show');
+    setTimeout(function(){ t.classList.remove('show'); }, 2800);
+  }
+
+  var calYear, calMonth;
+  function initCalendar() {
+    var now = new Date(); calYear = now.getFullYear(); calMonth = now.getMonth();
+    renderCalendar();
+  }
+  function calPrev() { calMonth--; if(calMonth<0){calMonth=11;calYear--;} renderCalendar(); }
+  function calNext() { calMonth++; if(calMonth>11){calMonth=0;calYear++;} renderCalendar(); }
+
+  function renderCalendar() {
+    var grid = document.getElementById('calGrid');
+    var title = document.getElementById('calTitle');
+    if(!grid) return;
+    var mn = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+    title.textContent = calYear + '年 ' + mn[calMonth];
+    var checkedDates = {};
+    checkinData.checkins.forEach(function(c){ checkedDates[c.date] = c; });
+    var firstDay = new Date(calYear, calMonth, 1).getDay();
+    var daysInMonth = new Date(calYear, calMonth+1, 0).getDate();
+    var todayStr = today();
+    var html = '';
+    ['日','一','二','三','四','五','六'].forEach(function(d){ html += '<div class="cal-head">' + d + '</div>'; });
+    for(var i=0;i<firstDay;i++) html += '<div></div>';
+    for(var d=1;d<=daysInMonth;d++){
+      var ds = calYear + '-' + String(calMonth+1).padStart(2,'0') + '-' + String(d).padStart(2,'0');
+      var cls = 'cal-day';
+      if(ds === todayStr) cls += ' cal-today';
+      if(checkedDates[ds]) cls += ' cal-done';
+      html += '<div class="' + cls + '">' + d + '</div>';
+    }
+    grid.innerHTML = html;
+    var mp = calYear + '-' + String(calMonth+1).padStart(2,'0');
+    var mc = checkinData.checkins.filter(function(c){ return c.date.startsWith(mp); }).length;
+    document.getElementById('calMonthCount').textContent = mc;
+    document.getElementById('calTotalCount').textContent = checkinData.checkins.length;
+  }
+
+  function showReport() { document.getElementById('reportModal').classList.add('show'); renderReport(); }
+  function closeReport() { document.getElementById('reportModal').classList.remove('show'); }
+  function renderReport() {
+    var now = new Date(), year = now.getFullYear(), month = now.getMonth();
+    var prefix = year + '-' + String(month+1).padStart(2,'0');
+    var list = checkinData.checkins.filter(function(c){ return c.date.startsWith(prefix); });
+    var total = checkinData.checkins.length;
+    var dim = new Date(year, month+1, 0).getDate();
+    var rate = Math.min(Math.round(list.length / (dim/7*4) * 100), 100);
+    var byDay = {};
+    list.forEach(function(c){ byDay[c.day] = (byDay[c.day]||0)+1; });
+    var dayRows = Object.keys(byDay).map(function(k){ return '<tr><td>'+k+'</td><td>'+byDay[k]+'次</td></tr>'; }).join('');
+    var mn2 = ['一','二','三','四','五','六','七','八','九','十','十一','十二'];
+    document.getElementById('reportContent').innerHTML = [
+      '<div class="report-header">📊 ' + year + '年' + mn2[month] + '月训练报告</div>',
+      '<div class="report-stats">',
+        '<div class="report-stat"><div class="rs-num">'+list.length+'</div><div class="rs-label">本月训练</div></div>',
+        '<div class="report-stat"><div class="rs-num">'+rate+'%</div><div class="rs-label">完成率</div></div>',
+        '<div class="report-stat"><div class="rs-num">'+total+'</div><div class="rs-label">累计打卡</div></div>',
+      '</div>',
+      list.length > 0 ? [
+        '<div class="report-sub">训练日分布</div>',
+        '<table class="report-table"><tr><th>训练日</th><th>次数</th></tr>'+dayRows+'</table>',
+        '<div class="report-sub">打卡记录</div>',
+        '<div class="report-dates">'+list.map(function(c){
+          return '<span class="report-date-tag">'+c.date.slice(5)+' '+( c.done||0)+'/'+(c.total||0)+'</span>';
+        }).join('')+'</div>'
+      ].join('') : '<div class="report-empty">本月暂无训练记录 💪 加油！</div>'
+    ].join('');
+  }
+
+  window.addEventListener('load', function(){ initCalendar(); loadCheckins(); });
 </script>
 </body>
 </html>
