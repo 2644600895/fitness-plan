@@ -28,15 +28,39 @@
     .day-info p { font-size: 0.85rem; color: #718096; margin-top: 2px; }
 
     .exercise-list { display: flex; flex-direction: column; gap: 10px; }
-    .exercise { background: white; border-radius: 12px; padding: 14px 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-    .ex-num { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; flex-shrink: 0; color: white; }
-    .ex-info { flex: 1; min-width: 120px; }
-    .ex-name { font-weight: 600; font-size: 0.95rem; }
-    .ex-detail { font-size: 0.8rem; color: #718096; margin-top: 3px; }
-    .ex-sets { font-size: 0.82rem; color: #667eea; font-weight: 600; flex-shrink: 0; white-space: nowrap; }
-    .ex-video-btn { background: #fb7299; color: white; border: none; border-radius: 8px; padding: 6px 11px; font-size: 0.78rem; cursor: pointer; flex-shrink: 0; white-space: nowrap; transition: background 0.2s; }
+    .exercise {
+      background: white; border-radius: 12px; padding: 12px 14px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+      display: grid;
+      grid-template-columns: 32px 1fr auto;
+      grid-template-rows: auto auto;
+      column-gap: 10px;
+      row-gap: 4px;
+      align-items: center;
+    }
+    .ex-num {
+      width: 32px; height: 32px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.85rem; flex-shrink: 0; color: white;
+      grid-column: 1; grid-row: 1 / 3;
+      align-self: center;
+    }
+    .ex-info { grid-column: 2; grid-row: 1; min-width: 0; }
+    .ex-name { font-weight: 600; font-size: 0.92rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .ex-detail { font-size: 0.78rem; color: #718096; margin-top: 2px; line-height: 1.4; }
+    .ex-actions {
+      grid-column: 3; grid-row: 1 / 3;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      align-self: center;
+    }
+    .ex-sets { font-size: 0.78rem; color: #667eea; font-weight: 600; white-space: nowrap; text-align: center; }
+    .ex-video-btn { background: #fb7299; color: white; border: none; border-radius: 8px; padding: 5px 10px; font-size: 0.75rem; cursor: pointer; white-space: nowrap; transition: background 0.2s; }
     .ex-video-btn:hover { background: #e05a87; }
-    .ex-check { width: 24px; height: 24px; border-radius: 50%; border: 2px solid #cbd5e0; cursor: pointer; flex-shrink: 0; position: relative; transition: all 0.2s; }
+    .ex-check {
+      width: 26px; height: 26px; border-radius: 50%;
+      border: 2px solid #cbd5e0; cursor: pointer; flex-shrink: 0;
+      position: relative; transition: all 0.2s;
+    }
     .ex-check.done { background: #68d391; border-color: #68d391; }
     .ex-check.done::after { content: '✓'; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); color: white; font-size: 0.75rem; font-weight: 700; }
 
@@ -80,13 +104,13 @@
     /* ========== 倒计时悬浮按钮 ========== */
     .timer-fab {
       position: fixed;
-      bottom: 28px;
-      right: 24px;
+      bottom: max(28px, env(safe-area-inset-bottom, 28px));
+      right: 16px;
       z-index: 999;
     }
     .timer-btn {
-      width: 60px;
-      height: 60px;
+      width: 54px;
+      height: 54px;
       border-radius: 50%;
       border: none;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -404,33 +428,41 @@
       <div class="exercise">
         <div class="ex-num color-chest">1</div>
         <div class="ex-info"><div class="ex-name">哑铃平板卧推</div><div class="ex-detail">躺在瑜伽垫，哑铃推至胸上方 · 胸肌主力动作，无需凳子</div></div>
+        <div class="ex-actions">
         <div class="ex-sets">4×10-12</div>
         <button class="ex-video-btn" onclick="openVideo('BV1LM411z7sS','哑铃卧推·练胸推荐')">📺 教学</button>
         <div class="ex-check" onclick="toggleCheck(this,'mon')"></div>
+        </div>
       </div>
       <!-- BV1rY411H7V2: 詹木丝儿fit 哑铃飞鸟 -->
       <div class="exercise">
         <div class="ex-num color-chest">2</div>
         <div class="ex-info"><div class="ex-name">哑铃飞鸟</div><div class="ex-detail">躺姿两臂侧向展开，感受胸部拉伸 · 塑造胸型线条</div></div>
+        <div class="ex-actions">
         <div class="ex-sets">3×12-15</div>
         <button class="ex-video-btn" onclick="openVideo('BV19a4y1q7dg','上斜胸肌飞鸟·轻松掌握')">📺 教学</button>
         <div class="ex-check" onclick="toggleCheck(this,'mon')"></div>
+        </div>
       </div>
       <!-- BV1Em411y7EN: 窄距俯卧撑 -->
       <div class="exercise">
         <div class="ex-num color-chest">3</div>
         <div class="ex-info"><div class="ex-name">窄距俯卧撑</div><div class="ex-detail">双手间距窄于肩，肘贴体侧下压 · 三头+内胸双重刺激</div></div>
+        <div class="ex-actions">
         <div class="ex-sets">3×12-15次</div>
         <button class="ex-video-btn" onclick="openVideo('BV1Em411y7EN','窄距俯卧撑·居家三头必练')">📺 教学</button>
         <div class="ex-check" onclick="toggleCheck(this,'mon')"></div>
+        </div>
       </div>
       <!-- BV1cC4y117fd: ALEX 哑铃臂屈伸 -->
       <div class="exercise">
         <div class="ex-num color-chest">4</div>
         <div class="ex-info"><div class="ex-name">仰卧哑铃臂屈伸</div><div class="ex-detail">躺在瑜伽垫，哑铃沿额头两侧下落再推起 · 三头孤立</div></div>
+        <div class="ex-actions">
         <div class="ex-sets">3×12次</div>
         <button class="ex-video-btn" onclick="openVideo('BV1cC4y117fd','哑铃臂屈伸·零基础超详细')">📺 教学</button>
         <div class="ex-check" onclick="toggleCheck(this,'mon')"></div>
+        </div>
       </div>
     </div>
     <div class="tips"><strong>💡 今日提示</strong>卧推和飞鸟直接躺瑜伽垫做，不需要凳子。飞鸟重量比卧推轻一档，以感受到胸部拉伸为准，别用力过猛让肩膀代偿。</div>
@@ -451,33 +483,41 @@
       <div class="exercise">
         <div class="ex-num color-back">1</div>
         <div class="ex-info"><div class="ex-name">单臂哑铃划船</div><div class="ex-detail">一手扶膝，另一手拉哑铃至腰侧 · 居家练背首选，背阔肌主力</div></div>
+        <div class="ex-actions">
         <div class="ex-sets">4×12/侧</div>
         <button class="ex-video-btn" onclick="openVideo('BV1ZM411J7Rq','哑铃划船怎么做·看完必会')">📺 教学</button>
         <div class="ex-check" onclick="toggleCheck(this,'wed')"></div>
+        </div>
       </div>
       <!-- BV1y14y1X7by: ALEX 坐姿划船 -->
       <div class="exercise">
         <div class="ex-num color-back">2</div>
         <div class="ex-info"><div class="ex-name">俯身哑铃提拉</div><div class="ex-detail">俯身45°，单手哑铃向上提拉至腰 · 练中背斜方肌，与划船互补</div></div>
+        <div class="ex-actions">
         <div class="ex-sets">3×12/侧</div>
         <button class="ex-video-btn" onclick="openVideo('BV1SL9YYJEPU','俯身哑铃提拉·饱满肩后束')">📺 教学</button>
         <div class="ex-check" onclick="toggleCheck(this,'wed')"></div>
+        </div>
       </div>
       <!-- BV1HmDyBdEEo: 居家哑铃练二头 -->
       <div class="exercise">
         <div class="ex-num color-back">3</div>
         <div class="ex-info"><div class="ex-name">哑铃交替弯举</div><div class="ex-detail">站姿，左右交替弯举至肩高，顶峰收缩1秒 · 二头肌主练</div></div>
+        <div class="ex-actions">
         <div class="ex-sets">4×12/侧</div>
         <button class="ex-video-btn" onclick="openVideo('BV1anmCYNEbK','哑铃弯举这么做更有效')">📺 教学</button>
         <div class="ex-check" onclick="toggleCheck(this,'wed')"></div>
+        </div>
       </div>
       <!-- BV1iJ411U72E: 蔡梓强 锤式弯举 -->
       <div class="exercise">
         <div class="ex-num color-back">4</div>
         <div class="ex-info"><div class="ex-name">锤式弯举</div><div class="ex-detail">掌心相对垂直弯举 · 前臂+二头肱肌全面刺激，手臂更粗</div></div>
+        <div class="ex-actions">
         <div class="ex-sets">3×12次</div>
         <button class="ex-video-btn" onclick="openVideo('BV1iJ411U72E','锤式弯举正确做法讲解')">📺 教学</button>
         <div class="ex-check" onclick="toggleCheck(this,'wed')"></div>
+        </div>
       </div>
     </div>
     <div class="tips"><strong>💡 今日提示</strong>划船时想象用肘把天花板顶穿，感受背部收缩发力，手臂只是钩子。弯举顶峰时停顿1秒挤压，二头增肌效果翻倍。</div>
@@ -498,49 +538,61 @@
       <div class="exercise">
         <div class="ex-num color-legs">1</div>
         <div class="ex-info"><div class="ex-name">高脚杯深蹲</div><div class="ex-detail">双手抱哑铃于胸前，慢速3秒下蹲 · 低噪音首选，练股四头</div></div>
+        <div class="ex-actions">
         <div class="ex-sets">4×15次</div>
         <button class="ex-video-btn" onclick="openVideo('BV1Mw4m1v7vJ','高脚杯深蹲·详细讲解')">📺 教学</button>
         <div class="ex-check" onclick="toggleCheck(this,'fri')"></div>
+        </div>
       </div>
       <!-- BV1rd4y1p7Zi: ALEX 箭步蹲 -->
       <div class="exercise">
         <div class="ex-num color-legs">2</div>
         <div class="ex-info"><div class="ex-name">原地箭步蹲</div><div class="ex-detail">握哑铃，脚不移动原地下沉 · 单腿稳定性+臀腿全面刺激</div></div>
+        <div class="ex-actions">
         <div class="ex-sets">3×12/侧</div>
         <button class="ex-video-btn" onclick="openVideo('BV12HvczSExw','后撤箭步蹲·更容易练臀')">📺 教学</button>
         <div class="ex-check" onclick="toggleCheck(this,'fri')"></div>
+        </div>
       </div>
       <!-- BV1VbDdBBEu9: 广州安安的爸爸 罗马尼亚硬拉 -->
       <div class="exercise">
         <div class="ex-num color-legs">3</div>
         <div class="ex-info"><div class="ex-name">罗马尼亚硬拉</div><div class="ex-detail">背直，髋关节铰链向下推 · 练臀腿后侧，低噪音</div></div>
+        <div class="ex-actions">
         <div class="ex-sets">3×12次</div>
         <button class="ex-video-btn" onclick="openVideo('BV1wg4y1j7dk','罗马尼亚硬拉·看完必会')">📺 教学</button>
         <div class="ex-check" onclick="toggleCheck(this,'fri')"></div>
+        </div>
       </div>
       <!-- BV1uw411N7MC: 凯圣王 坐姿推肩 -->
       <div class="exercise">
         <div class="ex-num color-full">4</div>
         <div class="ex-info"><div class="ex-name">哑铃肩推</div><div class="ex-detail">坐姿双手哑铃推至头顶，肘关节不锁死 · 三角肌前中束</div></div>
+        <div class="ex-actions">
         <div class="ex-sets">4×12次</div>
         <button class="ex-video-btn" onclick="openVideo('BV1Z841187pJ','饱满3D肩·哑铃推举')">📺 教学</button>
         <div class="ex-check" onclick="toggleCheck(this,'fri')"></div>
+        </div>
       </div>
       <!-- BV1zm421x7CA: ALEX 侧平举 -->
       <div class="exercise">
         <div class="ex-num color-full">5</div>
         <div class="ex-info"><div class="ex-name">哑铃侧平举</div><div class="ex-detail">手臂微弯，向两侧举至肩高停顿 · 打造肩膀宽度视觉</div></div>
+        <div class="ex-actions">
         <div class="ex-sets">3×15次</div>
         <button class="ex-video-btn" onclick="openVideo('BV1n8411j7uE','侧平举·家庭训练新手指南')">📺 教学</button>
         <div class="ex-check" onclick="toggleCheck(this,'fri')"></div>
+        </div>
       </div>
       <!-- BV1Sy421i79H: ALEX 俯身后束飞鸟 -->
       <div class="exercise">
         <div class="ex-num color-full">6</div>
         <div class="ex-info"><div class="ex-name">俯身后束飞鸟</div><div class="ex-detail">俯身90°，哑铃向两侧展开 · 三角肌后束，改善圆肩体态</div></div>
+        <div class="ex-actions">
         <div class="ex-sets">3×15次</div>
         <button class="ex-video-btn" onclick="openVideo('BV1Sy421i79H','哑铃俯身飞鸟·3D肩后束')">📺 教学</button>
         <div class="ex-check" onclick="toggleCheck(this,'fri')"></div>
+        </div>
       </div>
     </div>
     <div class="tips"><strong>💡 今日提示</strong>高脚杯深蹲慢速3秒下沉，脚跟不离地。侧平举小拇指稍微上翻更孤立中束；后束飞鸟用轻重量，感受肩后侧挤压才有效。</div>
@@ -561,41 +613,51 @@
       <div class="exercise">
         <div class="ex-num color-full">1</div>
         <div class="ex-info"><div class="ex-name">哑铃深蹲推举</div><div class="ex-detail">深蹲起身同时向上推举哑铃 · 全身联动，燃脂最强</div></div>
+        <div class="ex-actions">
         <div class="ex-sets">4×12次</div>
         <button class="ex-video-btn" onclick="openVideo('BV1nGBvYNEes','哑铃深蹲推举·臀腿肩三合一')">📺 教学</button>
         <div class="ex-check" onclick="toggleCheck(this,'sun')"></div>
+        </div>
       </div>
       <!-- BV1rd4y1p7Zi: ALEX 箭步蹲 -->
       <div class="exercise">
         <div class="ex-num color-full">2</div>
         <div class="ex-info"><div class="ex-name">后撤箭步蹲</div><div class="ex-detail">握哑铃，一脚向后退步下蹲 · 比原地箭步蹲更多臀部参与</div></div>
+        <div class="ex-actions">
         <div class="ex-sets">3×12/侧</div>
         <button class="ex-video-btn" onclick="openVideo('BV12HvczSExw','后撤箭步蹲·更容易练臀')">📺 教学</button>
         <div class="ex-check" onclick="toggleCheck(this,'sun')"></div>
+        </div>
       </div>
       <!-- BV13h411E7wV: Gandy__ 哑铃划船 -->
       <div class="exercise">
         <div class="ex-num color-full">3</div>
         <div class="ex-info"><div class="ex-name">俯身哑铃划船</div><div class="ex-detail">俯身45°，双手哑铃交替拉至腰侧 · 全身日补练背部</div></div>
+        <div class="ex-actions">
         <div class="ex-sets">3×14次</div>
         <button class="ex-video-btn" onclick="openVideo('BV1ZM411J7Rq','哑铃划船怎么做·全身日')">📺 教学</button>
         <div class="ex-check" onclick="toggleCheck(this,'sun')"></div>
+        </div>
       </div>
       <!-- BV1yn6FBgEmS: ALEX 全身功能训练 -->
       <div class="exercise">
         <div class="ex-num color-core">4</div>
         <div class="ex-info"><div class="ex-name">哑铃摆荡（Swing）</div><div class="ex-detail">双手握哑铃，髋关节发力向前摆 · 臀腿+心肺，燃脂神器</div></div>
+        <div class="ex-actions">
         <div class="ex-sets">3×20次</div>
         <button class="ex-video-btn" onclick="openVideo('BV1Qa3kzDEy2','哑铃Swing·摆荡细节讲解')">📺 教学</button>
         <div class="ex-check" onclick="toggleCheck(this,'sun')"></div>
+        </div>
       </div>
       <!-- BV1wF411d7Eq: 贫穷健身 平板支撑核心 -->
       <div class="exercise">
         <div class="ex-num color-core">5</div>
         <div class="ex-info"><div class="ex-name">核心训练组合</div><div class="ex-detail">平板支撑40秒 + 仰卧举腿15次 · 无跳跃，邻居友好</div></div>
+        <div class="ex-actions">
         <div class="ex-sets">3轮</div>
         <button class="ex-video-btn" onclick="openVideo('BV18R4y1e7VP','仰卧举腿·核心训练')">📺 教学</button>
         <div class="ex-check" onclick="toggleCheck(this,'sun')"></div>
+        </div>
       </div>
     </div>
     <div class="tips"><strong>💡 今日提示</strong>全身日是燃脂关键！组间休息控制30-45秒保持心率。深蹲推举用中等重量保持连贯，比单独推举或深蹲燃脂效率高2倍。</div>
