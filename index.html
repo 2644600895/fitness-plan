@@ -365,7 +365,7 @@
         />
       </svg>
       <div class="timer-ring-center">
-        <div class="timer-ring-text" id="timerText">01:00</div>
+        <div class="timer-ring-text" id="timerText">60s</div>
         <div class="timer-ring-sub">剩余时间</div>
       </div>
     </div>
@@ -724,12 +724,9 @@
     setTimeout(function(){ box.style.animation = 'timerPulse 0.45s ease 4'; }, 10);
   }
   function updateTimerDisplay() {
-    var m = Math.floor(timerLeft / 60);
-    var s = timerLeft % 60;
-    var text = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
     var el = document.getElementById('timerText');
     var fill = document.getElementById('timerRingFill');
-    el.textContent = text;
+    el.textContent = timerLeft + 's';
     if (timerLeft <= 10) {
       el.classList.add('urgent');
       fill.classList.add('urgent');
