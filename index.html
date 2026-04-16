@@ -77,125 +77,223 @@
 
     footer { text-align: center; padding: 30px; color: #a0aec0; font-size: 0.82rem; }
 
-    /* 倒计时悬浮按钮 */
+    /* ========== 倒计时悬浮按钮 ========== */
     .timer-fab {
       position: fixed;
       bottom: 28px;
-      right: 20px;
+      right: 24px;
       z-index: 999;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
     }
     .timer-btn {
-      width: 64px;
-      height: 64px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       border: none;
-      background: linear-gradient(135deg, #667eea, #764ba2);
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       cursor: pointer;
-      box-shadow: 0 4px 16px rgba(102,126,234,0.5);
-      transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 4px 20px rgba(102,126,234,0.55), 0 0 0 0 rgba(102,126,234,0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
       display: flex;
       align-items: center;
       justify-content: center;
+      animation: fabPulse 2.5s ease-in-out infinite;
     }
-    .timer-btn:hover { transform: scale(1.08); box-shadow: 0 6px 22px rgba(102,126,234,0.65); }
-    .timer-btn:active { transform: scale(0.96); }
+    .timer-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 28px rgba(102,126,234,0.7);
+      animation: none;
+    }
+    .timer-btn:active { transform: scale(0.93); }
+    @keyframes fabPulse {
+      0%,100% { box-shadow: 0 4px 20px rgba(102,126,234,0.55), 0 0 0 0 rgba(102,126,234,0.35); }
+      50%      { box-shadow: 0 4px 20px rgba(102,126,234,0.55), 0 0 0 12px rgba(102,126,234,0); }
+    }
 
-    /* 倒计时弹窗 */
+    /* ========== 倒计时弹窗 ========== */
     .timer-modal {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.72);
+      background: rgba(10,8,20,0.75);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       z-index: 1100;
       justify-content: center;
       align-items: center;
+      padding: 16px;
     }
-    .timer-modal.show { display: flex; }
+    .timer-modal.show { display: flex; animation: modalIn 0.28s cubic-bezier(.34,1.56,.64,1); }
+    @keyframes modalIn {
+      from { opacity:0; transform: scale(0.85); }
+      to   { opacity:1; transform: scale(1); }
+    }
     .timer-box {
-      background: #1a1a2e;
-      border-radius: 24px;
-      padding: 40px 36px;
+      background: linear-gradient(160deg, #1a1040 0%, #0f0c2a 100%);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 28px;
+      padding: 36px 32px 28px;
       text-align: center;
-      width: 300px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-    }
-    .timer-label { color: #a0aec0; font-size: 0.9rem; margin-bottom: 16px; letter-spacing: 0.08em; }
-    .timer-display {
-      font-size: 5rem;
-      font-weight: 800;
-      color: white;
-      letter-spacing: 0.05em;
-      line-height: 1;
-      margin-bottom: 10px;
-      font-variant-numeric: tabular-nums;
-      transition: color 0.3s;
-    }
-    .timer-display.urgent { color: #fc8181; }
-    .timer-ring {
-      width: 160px;
-      height: 160px;
-      margin: 0 auto 24px;
+      width: 320px;
+      max-width: 100%;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.07);
       position: relative;
+      overflow: hidden;
     }
-    .timer-ring svg { transform: rotate(-90deg); }
-    .timer-ring-bg { fill: none; stroke: #2d3748; stroke-width: 8; }
-    .timer-ring-fill {
-      fill: none;
-      stroke: url(#timerGradient);
-      stroke-width: 8;
-      stroke-linecap: round;
-      transition: stroke-dashoffset 1s linear;
-    }
-    .timer-ring-text {
+    .timer-box::before {
+      content: '';
       position: absolute;
-      inset: 0;
+      top: -60px; left: 50%; transform: translateX(-50%);
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(102,126,234,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .timer-header {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2.6rem;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .timer-header-icon { font-size: 1.2rem; }
+    .timer-label {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* 圆环 */
+    .timer-ring {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 24px;
+      position: relative;
+    }
+    .timer-ring svg { transform: rotate(-90deg); filter: drop-shadow(0 0 10px rgba(102,126,234,0.4)); }
+    .timer-ring-bg { fill: none; stroke: rgba(255,255,255,0.06); stroke-width: 10; }
+    .timer-ring-fill {
+      fill: none;
+      stroke: url(#timerGradient);
+      stroke-width: 10;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 1s linear, filter 0.5s;
+    }
+    .timer-ring-fill.urgent {
+      stroke: url(#urgentGradient);
+      filter: drop-shadow(0 0 8px rgba(252,129,129,0.8));
+    }
+    .timer-ring-center {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+    }
+    .timer-ring-text {
+      font-size: 3rem;
       font-weight: 800;
       color: white;
       font-variant-numeric: tabular-nums;
+      letter-spacing: 0.02em;
+      line-height: 1;
+      transition: color 0.4s;
+      text-shadow: 0 0 20px rgba(102,126,234,0.5);
     }
-    .timer-ring-text.urgent { color: #fc8181; }
-    .timer-actions { display: flex; gap: 12px; justify-content: center; margin-top: 8px; }
+    .timer-ring-text.urgent {
+      color: #fc8181;
+      text-shadow: 0 0 20px rgba(252,129,129,0.7);
+      animation: urgentShake 0.5s ease infinite alternate;
+    }
+    @keyframes urgentShake {
+      from { transform: scale(1); }
+      to   { transform: scale(1.04); }
+    }
+    .timer-ring-sub {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.35);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+    }
+
+    /* 操作按钮 */
+    .timer-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
     .timer-action-btn {
       flex: 1;
-      padding: 12px 0;
+      padding: 13px 0;
       border: none;
-      border-radius: 12px;
-      font-size: 0.95rem;
+      border-radius: 14px;
+      font-size: 0.88rem;
       font-weight: 700;
       cursor: pointer;
-      transition: opacity 0.15s, transform 0.1s;
+      transition: transform 0.15s, opacity 0.15s, box-shadow 0.15s;
+      letter-spacing: 0.04em;
     }
-    .timer-action-btn:hover { opacity: 0.85; }
-    .timer-action-btn:active { transform: scale(0.96); }
-    .btn-start  { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
-    .btn-pause  { background: #f6ad55; color: #744210; }
-    .btn-reset  { background: #2d3748; color: #a0aec0; }
-    .timer-close {
-      margin-top: 16px;
-      background: none;
+    .timer-action-btn:hover { transform: translateY(-2px); opacity: 0.92; }
+    .timer-action-btn:active { transform: scale(0.95) translateY(0); }
+    .btn-start {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      box-shadow: 0 4px 16px rgba(102,126,234,0.45);
+    }
+    .btn-pause {
+      background: linear-gradient(135deg, #f6ad55, #ed8936);
+      color: white;
+      box-shadow: 0 4px 16px rgba(246,173,85,0.4);
+    }
+    .btn-reset {
+      background: rgba(255,255,255,0.07);
+      color: rgba(255,255,255,0.5);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .btn-reset:hover { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.7); }
+
+    /* 关闭按钮 */
+    .timer-close-btn {
+      position: absolute;
+      top: 14px; right: 16px;
+      width: 28px; height: 28px;
+      border-radius: 50%;
       border: none;
-      color: #4a5568;
-      font-size: 0.85rem;
+      background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.4);
+      font-size: 1rem;
       cursor: pointer;
-      text-decoration: underline;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s, color 0.15s;
+      line-height: 1;
     }
-    .timer-close:hover { color: #a0aec0; }
+    .timer-close-btn:hover { background: rgba(255,255,255,0.16); color: rgba(255,255,255,0.8); }
+
+    /* 完成提示 */
     .timer-done-msg {
       display: none;
-      font-size: 1rem;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, rgba(104,211,145,0.15), rgba(72,187,120,0.1));
+      border: 1px solid rgba(104,211,145,0.3);
+      border-radius: 12px;
+      padding: 10px 16px;
+      font-size: 0.88rem;
       color: #68d391;
-      margin-top: 10px;
       font-weight: 600;
+      margin-top: 4px;
+      animation: doneIn 0.4s cubic-bezier(.34,1.56,.64,1);
+    }
+    .timer-done-msg.show { display: flex; }
+    @keyframes doneIn {
+      from { opacity:0; transform: scale(0.8) translateY(8px); }
+      to   { opacity:1; transform: scale(1) translateY(0); }
     }
   </style>
 </head>
@@ -216,36 +314,46 @@
 <!-- 视频弹窗 -->
 <!-- 倒计时悬浮按钮 -->
 <div class="timer-fab">
-  <button class="timer-btn" onclick="openTimer()" title="休息倒计时 1分钟">⏱</button>
+  <button class="timer-btn" onclick="openTimer()" title="组间休息倒计时">⏱</button>
 </div>
 
 <!-- 倒计时弹窗 -->
 <div class="timer-modal" id="timerModal" onclick="if(event.target===this)closeTimer()">
   <div class="timer-box" id="timerBox">
-    <div class="timer-label">🔥 组间休息倒计时</div>
+    <button class="timer-close-btn" onclick="closeTimer()">✕</button>
+    <div class="timer-header">
+      <span class="timer-header-icon">🔥</span>
+      <span class="timer-label">组间休息倒计时</span>
+    </div>
     <div class="timer-ring">
-      <svg width="160" height="160" viewBox="0 0 160 160">
+      <svg width="180" height="180" viewBox="0 0 180 180">
         <defs>
-          <linearGradient id="timerGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#667eea"/>
-            <stop offset="100%" stop-color="#764ba2"/>
+          <linearGradient id="timerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#a78bfa"/>
+            <stop offset="100%" stop-color="#667eea"/>
+          </linearGradient>
+          <linearGradient id="urgentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#fc8181"/>
+            <stop offset="100%" stop-color="#f56565"/>
           </linearGradient>
         </defs>
-        <circle class="timer-ring-bg" cx="80" cy="80" r="62"/>
-        <circle class="timer-ring-fill" id="timerRingFill" cx="80" cy="80" r="62"
-          stroke-dasharray="389.557"
+        <circle class="timer-ring-bg" cx="90" cy="90" r="76"/>
+        <circle class="timer-ring-fill" id="timerRingFill" cx="90" cy="90" r="76"
+          stroke-dasharray="477.52"
           stroke-dashoffset="0"
         />
       </svg>
-      <div class="timer-ring-text" id="timerText">01:00</div>
+      <div class="timer-ring-center">
+        <div class="timer-ring-text" id="timerText">01:00</div>
+        <div class="timer-ring-sub">剩余时间</div>
+      </div>
     </div>
     <div class="timer-actions">
       <button class="timer-action-btn btn-start" id="btnStart" onclick="startTimer()">▶ 开始</button>
       <button class="timer-action-btn btn-pause" id="btnPause" onclick="pauseTimer()" style="display:none">⏸ 暂停</button>
       <button class="timer-action-btn btn-reset" onclick="resetTimer()">↺ 重置</button>
     </div>
-    <div class="timer-done-msg" id="timerDoneMsg">✅ 休息结束，继续加油！</div>
-    <button class="timer-close" onclick="closeTimer()">关闭</button>
+    <div class="timer-done-msg" id="timerDoneMsg">🎉 休息完毕，继续冲！</div>
   </div>
 </div>
 
@@ -546,7 +654,7 @@
   var timerLeft = TIMER_TOTAL;
   var timerRunning = false;
   var timerInterval = null;
-  var circumference = 2 * Math.PI * 62; // r=62
+  var circumference = 2 * Math.PI * 76; // r=76 → 477.52
 
   function openTimer() {
     document.getElementById('timerModal').classList.add('show');
@@ -579,34 +687,38 @@
   function resetTimer() {
     pauseTimer();
     timerLeft = TIMER_TOTAL;
-    document.getElementById('timerDoneMsg').style.display = 'none';
+    var done = document.getElementById('timerDoneMsg');
+    done.classList.remove('show');
     updateTimerDisplay();
     updateTimerButtons();
   }
   function timerDone() {
     updateTimerDisplay();
     updateTimerButtons();
-    document.getElementById('timerDoneMsg').style.display = 'block';
-    // 闪烁提示
+    var done = document.getElementById('timerDoneMsg');
+    done.classList.add('show');
+    // 卷帘闪烁
     var box = document.getElementById('timerBox');
     box.style.animation = 'none';
-    setTimeout(function(){ box.style.animation = 'timerPulse 0.5s ease 3'; }, 10);
+    setTimeout(function(){ box.style.animation = 'timerPulse 0.45s ease 4'; }, 10);
   }
   function updateTimerDisplay() {
     var m = Math.floor(timerLeft / 60);
     var s = timerLeft % 60;
     var text = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
     var el = document.getElementById('timerText');
+    var fill = document.getElementById('timerRingFill');
     el.textContent = text;
     if (timerLeft <= 10) {
       el.classList.add('urgent');
+      fill.classList.add('urgent');
     } else {
       el.classList.remove('urgent');
+      fill.classList.remove('urgent');
     }
-    // 更新圆环
     var ratio = timerLeft / TIMER_TOTAL;
     var offset = circumference * (1 - ratio);
-    document.getElementById('timerRingFill').style.strokeDashoffset = offset;
+    fill.style.strokeDashoffset = offset;
   }
   function updateTimerButtons() {
     var btnStart = document.getElementById('btnStart');
