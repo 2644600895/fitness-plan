@@ -904,19 +904,12 @@
   }
 
   /* ========= 打卡 & Gist 数据存储 ========= */
+  var GIST_TOKEN = '__GIST_TOKEN_PLACEHOLDER__';
   var GIST_ID   = 'f069cfa38ed58d882958804a3fcf5e5b';
   var GIST_FILE = 'checkin.json';
   var checkinData = { checkins: [] };
 
-  function getToken() {
-    return localStorage.getItem('fitness_gist_token') || '';
-  }
-  function ensureToken(cb) {
-    if (getToken()) { cb(); return; }
-    var t = prompt('请输入 GitHub Token（需要 gist 权限）：');
-    if (t && t.trim()) { localStorage.setItem('fitness_gist_token', t.trim()); cb(); }
-    else alert('未输入 Token，打卡功能将无法保存');
-  }
+  function getToken() { return GIST_TOKEN; }
 
   function today() {
     var d = new Date();
@@ -924,7 +917,6 @@
   }
 
   function loadCheckins() {
-    if (!getToken()) { renderCalendar(); renderCheckinBtn(); return; }
     fetch('https://api.github.com/gists/' + GIST_ID, {
       headers: { 'Authorization': 'token ' + getToken(), 'User-Agent': 'fitness-plan' }
     })
@@ -956,7 +948,6 @@
 
   function doCheckin() {
     if (todayChecked()) { alert('今天已经打卡啦 🎉'); return; }
-    ensureToken(function() {
     var panel = document.querySelector('.day-panel.active');
     var dayName = panel ? panel.querySelector('.day-info h3').textContent : '训练';
     var allEx  = panel ? panel.querySelectorAll('.ex-check').length : 0;
@@ -965,7 +956,6 @@
     var btn = document.getElementById('checkinBtn');
     btn.disabled = true; btn.textContent = '保存中...';
     saveCheckins(function(){ renderCheckinBtn(); renderCalendar(); showCheckinToast(); });
-    }); // ensureToken
   }
 
   function renderCheckinBtn() {
