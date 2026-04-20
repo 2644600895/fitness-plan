@@ -97,6 +97,27 @@
     .color-full  { background:#f6ad55; }
     .color-core  { background:#b794f4; }
 
+    /* ===== 营养追踪表格 ===== */
+    .nt-header, .nt-row { display:grid; grid-template-columns:80px 1fr 1fr 1fr; gap:6px; align-items:center; margin-bottom:6px; }
+    .nt-col-label { text-align:center; font-size:0.75rem; font-weight:700; color:#718096; }
+    .nt-col-label span { display:block; font-size:0.65rem; color:#a0aec0; font-weight:400; }
+    .nt-meal-label { font-size:0.78rem; color:#4a5568; font-weight:600; white-space:nowrap; }
+    .nt-input {
+      width:100%; padding:7px 6px; border:1.5px solid #e2e8f0; border-radius:8px;
+      font-size:0.85rem; text-align:center; color:#2d3748; background:#f7fafc;
+      outline:none; transition:border-color 0.2s;
+      -moz-appearance:textfield;
+    }
+    .nt-input::-webkit-inner-spin-button, .nt-input::-webkit-outer-spin-button { -webkit-appearance:none; }
+    .nt-input:focus { border-color:#667eea; background:white; }
+    .nt-total-row { border-top:2px solid #e2e8f0; padding-top:8px; margin-top:4px; }
+    .nt-total { text-align:center; font-size:0.88rem; font-weight:700; color:#667eea; }
+    .nt-remain-row { background:#f0fff4; border-radius:10px; padding:6px 4px; }
+    .nt-remain { text-align:center; font-size:0.88rem; font-weight:700; color:#38a169; }
+    .nt-remain.over { color:#e53e3e; }
+    .nt-kcal-row { text-align:center; font-size:0.8rem; color:#718096; margin-top:10px; padding-top:8px; border-top:1px solid #f0f4f8; }
+    .nt-kcal-row strong { color:#2d3748; }
+
     /* ===== 打卡区 ===== */
     .punch-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
     .punch-card {
@@ -260,6 +281,58 @@
       <div class="card-title" style="margin-bottom:10px">🍽️ 推荐餐食</div>
       <div class="meal-list" id="mealList"></div>
     </div>
+  </div>
+
+  <!-- 营养摄入追踪 -->
+  <div class="card" id="nutriTrackCard">
+    <div class="card-title">📊 今日营养追踪</div>
+    <!-- 表头 -->
+    <div class="nt-header">
+      <div class="nt-meal-label"></div>
+      <div class="nt-col-label">碳水<span>g</span></div>
+      <div class="nt-col-label">蛋白质<span>g</span></div>
+      <div class="nt-col-label">脂肪<span>g</span></div>
+    </div>
+    <!-- 四餐行 -->
+    <div class="nt-row">
+      <div class="nt-meal-label">🌅 早餐</div>
+      <input class="nt-input" type="number" min="0" placeholder="0" id="nt_breakfast_carb" oninput="ntUpdate()">
+      <input class="nt-input" type="number" min="0" placeholder="0" id="nt_breakfast_protein" oninput="ntUpdate()">
+      <input class="nt-input" type="number" min="0" placeholder="0" id="nt_breakfast_fat" oninput="ntUpdate()">
+    </div>
+    <div class="nt-row">
+      <div class="nt-meal-label">🍱 午餐</div>
+      <input class="nt-input" type="number" min="0" placeholder="0" id="nt_lunch_carb" oninput="ntUpdate()">
+      <input class="nt-input" type="number" min="0" placeholder="0" id="nt_lunch_protein" oninput="ntUpdate()">
+      <input class="nt-input" type="number" min="0" placeholder="0" id="nt_lunch_fat" oninput="ntUpdate()">
+    </div>
+    <div class="nt-row">
+      <div class="nt-meal-label">🌙 晚餐</div>
+      <input class="nt-input" type="number" min="0" placeholder="0" id="nt_dinner_carb" oninput="ntUpdate()">
+      <input class="nt-input" type="number" min="0" placeholder="0" id="nt_dinner_protein" oninput="ntUpdate()">
+      <input class="nt-input" type="number" min="0" placeholder="0" id="nt_dinner_fat" oninput="ntUpdate()">
+    </div>
+    <div class="nt-row">
+      <div class="nt-meal-label">💪 训练后</div>
+      <input class="nt-input" type="number" min="0" placeholder="0" id="nt_post_carb" oninput="ntUpdate()">
+      <input class="nt-input" type="number" min="0" placeholder="0" id="nt_post_protein" oninput="ntUpdate()">
+      <input class="nt-input" type="number" min="0" placeholder="0" id="nt_post_fat" oninput="ntUpdate()">
+    </div>
+    <!-- 已摄入合计 -->
+    <div class="nt-row nt-total-row">
+      <div class="nt-meal-label">✅ 已摄入</div>
+      <div class="nt-total" id="nt_total_carb">0g</div>
+      <div class="nt-total" id="nt_total_protein">0g</div>
+      <div class="nt-total" id="nt_total_fat">0g</div>
+    </div>
+    <!-- 还需摄入 -->
+    <div class="nt-row nt-remain-row">
+      <div class="nt-meal-label">⬇️ 还需摄入</div>
+      <div class="nt-remain" id="nt_remain_carb">-g</div>
+      <div class="nt-remain" id="nt_remain_protein">-g</div>
+      <div class="nt-remain" id="nt_remain_fat">-g</div>
+    </div>
+    <div class="nt-kcal-row" id="nt_kcal_row">今日已摄入热量：<strong id="nt_kcal_done">0</strong> kcal &nbsp;|&nbsp; 还需：<strong id="nt_kcal_remain">-</strong> kcal</div>
   </div>
 
   <!-- 今日训练 -->
@@ -566,6 +639,7 @@ function selectDay(idx) {
   selectedDayIdx = idx;
   renderWeekNav();
   renderDayContent(idx);
+  ntLoad();
 }
 
 /* ====================================================
@@ -649,6 +723,89 @@ function openVideo(bv, title) {
 function closeVideo() {
   document.getElementById('videoModal').classList.remove('show');
   document.getElementById('videoFrame').src = '';
+}
+
+/* ====================================================
+   营养追踪
+==================================================== */
+var NT_MEALS = ['breakfast','lunch','dinner','post'];
+var NT_KEYS  = ['carb','protein','fat'];
+
+function ntTodayKey() { return 'nt_' + todayStr(); }
+
+function ntLoad() {
+  var saved = localStorage.getItem(ntTodayKey());
+  if (!saved) { ntClearInputs(); ntUpdate(); return; }
+  var data = JSON.parse(saved);
+  NT_MEALS.forEach(function(m) {
+    NT_KEYS.forEach(function(k) {
+      var el = document.getElementById('nt_'+m+'_'+k);
+      if (el) el.value = data[m] && data[m][k] != null ? data[m][k] : '';
+    });
+  });
+  ntUpdate();
+}
+
+function ntClearInputs() {
+  NT_MEALS.forEach(function(m) {
+    NT_KEYS.forEach(function(k) {
+      var el = document.getElementById('nt_'+m+'_'+k);
+      if (el) el.value = '';
+    });
+  });
+}
+
+function ntSave() {
+  var data = {};
+  NT_MEALS.forEach(function(m) {
+    data[m] = {};
+    NT_KEYS.forEach(function(k) {
+      var el = document.getElementById('nt_'+m+'_'+k);
+      data[m][k] = el && el.value !== '' ? parseFloat(el.value) || 0 : null;
+    });
+  });
+  localStorage.setItem(ntTodayKey(), JSON.stringify(data));
+}
+
+function ntUpdate() {
+  ntSave();
+  var totals = {carb:0, protein:0, fat:0};
+  NT_MEALS.forEach(function(m) {
+    NT_KEYS.forEach(function(k) {
+      var el = document.getElementById('nt_'+m+'_'+k);
+      totals[k] += el && el.value !== '' ? parseFloat(el.value) || 0 : 0;
+    });
+  });
+
+  // 显示已摄入
+  document.getElementById('nt_total_carb').textContent    = totals.carb.toFixed(1) + 'g';
+  document.getElementById('nt_total_protein').textContent = totals.protein.toFixed(1) + 'g';
+  document.getElementById('nt_total_fat').textContent     = totals.fat.toFixed(1) + 'g';
+
+  // 获取当天目标
+  var cfg = DAY_CONFIG[selectedDayIdx];
+  var targetCarb    = cfg ? cfg.carb    : 0;
+  var targetProtein = cfg ? cfg.protein : 0;
+  var targetFat     = cfg ? cfg.fat     : 0;
+  var targetKcal    = cfg ? cfg.kcal    : 0;
+
+  // 还需摄入
+  var keys = ['carb','protein','fat'];
+  var targets = [targetCarb, targetProtein, targetFat];
+  keys.forEach(function(k, i) {
+    var rem = targets[i] - totals[k];
+    var el  = document.getElementById('nt_remain_' + k);
+    el.textContent = (rem >= 0 ? rem.toFixed(1) : '+' + Math.abs(rem).toFixed(1)) + 'g';
+    if (rem < 0) el.classList.add('over'); else el.classList.remove('over');
+  });
+
+  // 热量
+  var kcalDone   = totals.carb * 4 + totals.protein * 4 + totals.fat * 9;
+  var kcalRemain = targetKcal - kcalDone;
+  document.getElementById('nt_kcal_done').textContent   = Math.round(kcalDone);
+  var remEl = document.getElementById('nt_kcal_remain');
+  remEl.textContent = kcalRemain >= 0 ? Math.round(kcalRemain) : '-' + Math.round(Math.abs(kcalRemain)) + '（超出）';
+  remEl.style.color = kcalRemain < 0 ? '#e53e3e' : '#2d3748';
 }
 
 /* ====================================================
@@ -897,6 +1054,7 @@ window.addEventListener('load', function(){
   renderDayContent(selectedDayIdx);
   initCalendar();
   loadCheckins();
+  ntLoad();
 });
 </script>
 </body>
