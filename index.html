@@ -99,13 +99,14 @@
 
     /* ===== 营养追踪表格 ===== */
     .nt-table { width:100%; border-collapse:separate; border-spacing:0 5px; }
-    .nt-table th {
-      padding:6px 4px; font-size:0.7rem; font-weight:700; color:#718096;
-      text-align:center; background:#f7fafc; border-bottom:2px solid #e2e8f0;
+    .nt-table thead tr th {
+      padding:8px 6px; font-size:0.72rem; font-weight:700; color:#fff;
+      text-align:center; background:linear-gradient(135deg,#667eea,#764ba2);
+      white-space:nowrap;
     }
-    .nt-table th:first-child { text-align:left; padding-left:8px; border-radius:8px 0 0 0; }
-    .nt-table th:last-child  { border-radius:0 8px 0 0; }
-    .nt-table th .nt-th-unit { display:block; font-size:0.62rem; color:#a0aec0; font-weight:400; }
+    .nt-table thead tr th:first-child { text-align:left; padding-left:10px; border-radius:10px 0 0 10px; }
+    .nt-table thead tr th:last-child  { border-radius:0 10px 10px 0; }
+    .nt-table th .nt-th-unit { font-size:0.65rem; opacity:0.8; font-weight:400; margin-left:2px; }
     .nt-table td { padding:4px 4px; vertical-align:middle; }
     .nt-table td:first-child { padding-left:4px; }
     .nt-meal-badge {
