@@ -233,7 +233,7 @@
 <!-- Hero -->
 <div class="hero">
   <h1>🏋️ 家庭健身计划</h1>
-  <p>减脂增肌塑形 · 74kg / 179cm / 24岁男性 · 周4练</p>
+  <p>减脂增肌塑形 · 74kg / 179cm / 24岁男性 · 周一/三/五力量·周二/六有氧·周四/日休息</p>
 </div>
 
 <!-- 星期选择器 -->
@@ -386,33 +386,58 @@
    数据配置
 ==================================================== */
 var DAY_CONFIG = [
-  { // 周日 0
+  { // 周日 0 — 完全休息
     type:'rest', label:'😴 休息日', color:'type-rest',
-    title:'完全休息日', desc:'让肌肉充分恢复，为下周蓄力',
+    title:'完全休息日', desc:'彻底放松，让肌肉充分恢复，为下周蓄力',
     kcal:1600, carb:100, protein:170, fat:58,
     meals:[
       {icon:'🌅', name:'早餐', detail:'水煮蛋3个 + 全脂牛奶200ml + 少量坚果10g', highlight:false},
       {icon:'🍱', name:'午餐', detail:'杂粮饭50g + 鸡胸/豆腐200g + 绿叶蔬菜不限', highlight:false},
-      {icon:'🥗', name:'晚餐', detail:'无主食 · 鱼/瘦肉150g + 西兰花/菠菜 + 橄榄油少许', highlight:false},
-      {icon:'💊', name:'补剂', detail:'可在睡前补充酪蛋白蛋白粉1勺（缓慢吸收，保肌防掉肌）', highlight:true}
+      {icon:'🌙', name:'晚餐', detail:'无主食 · 鱼/瘦肉150g + 西兰花/菠菜 + 橄榄油少许', highlight:false},
+      {icon:'💊', name:'补剂', detail:'睡前酪蛋白蛋白粉1勺（缓慢吸收，保肌防掉肌）', highlight:true}
     ],
-    workoutType:'rest'
+    workoutType:'fullrest'
   },
-  { // 周一 1
+  { // 周一 1 — 力量：胸+三头（晚上）
     type:'workout', label:'🏋️ 锻炼日', color:'type-workout',
-    title:'胸 + 三头日', desc:'主攻推系肌群，训练后补充蛋白粉',
+    title:'胸 + 三头日', desc:'主攻推系肌群，晚上训练，训练后补充蛋白粉',
     kcal:1892, carb:185, protein:185, fat:46,
     meals:[
-      {icon:'🌅', name:'早餐（训练前）', detail:'燕麦80g + 鸡蛋3个 + 牛奶200ml', highlight:false},
-      {icon:'💪', name:'训练后30分钟内', detail:'乳清蛋白粉1勺（约25g蛋白）+ 香蕉1根 · 快速补充糖原+氨基酸', highlight:true},
+      {icon:'🌅', name:'早餐', detail:'燕麦80g + 鸡蛋3个 + 牛奶200ml', highlight:false},
       {icon:'🍱', name:'午餐', detail:'糙米100g + 鸡胸肉200g + 西兰花/蔬菜不限', highlight:false},
-      {icon:'🌙', name:'晚餐', detail:'红薯80g + 牛肉/三文鱼150g + 绿叶蔬菜', highlight:false}
+      {icon:'💪', name:'训练后30分钟内（晚上）', detail:'乳清蛋白粉1勺（约25g蛋白）+ 香蕉1根 · 快速补充糖原+氨基酸', highlight:true},
+      {icon:'🌙', name:'晚餐/训练后餐', detail:'红薯80g + 牛肉/三文鱼150g + 绿叶蔬菜', highlight:false}
     ],
     workoutType:'mon'
   },
-  { // 周二 2
+  { // 周二 2 — 有氧（晚上）
+    type:'cardio', label:'🚴 有氧日', color:'type-cardio',
+    title:'有氧训练日', desc:'中等强度有氧30-45分钟，晚上进行，促进恢复燃脂',
+    kcal:1750, carb:150, protein:175, fat:50,
+    meals:[
+      {icon:'🌅', name:'早餐', detail:'全麦面包2片 + 鸡蛋2个 + 希腊酸奶150g', highlight:false},
+      {icon:'🍱', name:'午餐', detail:'糙米60g + 虾/鸡胸180g + 西兰花', highlight:false},
+      {icon:'🥗', name:'下午加餐', detail:'坚果20g + 苹果/橙子1个', highlight:false},
+      {icon:'💪', name:'有氧后（晚上）', detail:'乳清蛋白粉半勺 + 低糖水果（防止肌肉分解）', highlight:true},
+      {icon:'🌙', name:'晚餐', detail:'无主食 + 三文鱼/瘦牛肉150g + 大量蔬菜', highlight:false}
+    ],
+    workoutType:'cardio'
+  },
+  { // 周三 3 — 力量：背+二头（晚上）
+    type:'workout', label:'🏋️ 锻炼日', color:'type-workout',
+    title:'背 + 二头日', desc:'主攻拉系肌群，晚上训练，训练后补充蛋白粉',
+    kcal:1892, carb:185, protein:185, fat:46,
+    meals:[
+      {icon:'🌅', name:'早餐', detail:'燕麦80g + 鸡蛋3个 + 牛奶200ml', highlight:false},
+      {icon:'🍱', name:'午餐', detail:'糙米100g + 鸡胸肉200g + 西兰花/蔬菜不限', highlight:false},
+      {icon:'💪', name:'训练后30分钟内（晚上）', detail:'乳清蛋白粉1勺（约25g蛋白）+ 香蕉1根', highlight:true},
+      {icon:'🌙', name:'晚餐/训练后餐', detail:'红薯80g + 牛肉/三文鱼150g + 绿叶蔬菜', highlight:false}
+    ],
+    workoutType:'wed'
+  },
+  { // 周四 4 — 完全休息
     type:'rest', label:'😴 休息日', color:'type-rest',
-    title:'完全休息日', desc:'让肌肉充分恢复',
+    title:'完全休息日', desc:'彻底放松，让肌肉充分恢复',
     kcal:1600, carb:100, protein:170, fat:58,
     meals:[
       {icon:'🌅', name:'早餐', detail:'水煮蛋3个 + 全脂牛奶200ml + 少量坚果10g', highlight:false},
@@ -420,56 +445,32 @@ var DAY_CONFIG = [
       {icon:'🌙', name:'晚餐', detail:'无主食 · 鱼/瘦肉150g + 西兰花/菠菜 + 橄榄油少许', highlight:false},
       {icon:'💊', name:'补剂', detail:'睡前酪蛋白蛋白粉1勺（缓慢吸收保肌）', highlight:true}
     ],
-    workoutType:'rest'
+    workoutType:'fullrest'
   },
-  { // 周三 3
+  { // 周五 5 — 力量：腿+肩（晚上）
     type:'workout', label:'🏋️ 锻炼日', color:'type-workout',
-    title:'背 + 二头日', desc:'主攻拉系肌群，训练后补充蛋白粉',
+    title:'腿 + 肩日', desc:'大肌群训练，晚上进行，训练后补充蛋白粉',
     kcal:1892, carb:185, protein:185, fat:46,
     meals:[
-      {icon:'🌅', name:'早餐（训练前）', detail:'燕麦80g + 鸡蛋3个 + 牛奶200ml', highlight:false},
-      {icon:'💪', name:'训练后30分钟内', detail:'乳清蛋白粉1勺（约25g蛋白）+ 香蕉1根', highlight:true},
+      {icon:'🌅', name:'早餐', detail:'燕麦80g + 鸡蛋3个 + 牛奶200ml', highlight:false},
       {icon:'🍱', name:'午餐', detail:'糙米100g + 鸡胸肉200g + 西兰花/蔬菜不限', highlight:false},
-      {icon:'🌙', name:'晚餐', detail:'红薯80g + 牛肉/三文鱼150g + 绿叶蔬菜', highlight:false}
-    ],
-    workoutType:'wed'
-  },
-  { // 周四 4
-    type:'cardio', label:'🚴 有氧日', color:'type-cardio',
-    title:'有氧恢复日', desc:'中等强度有氧30-45分钟，促进恢复燃脂',
-    kcal:1750, carb:150, protein:175, fat:50,
-    meals:[
-      {icon:'🌅', name:'早餐', detail:'全麦面包2片 + 鸡蛋2个 + 希腊酸奶150g', highlight:false},
-      {icon:'💪', name:'有氧后', detail:'乳清蛋白粉半勺 + 低糖水果（有氧后适量补充，防止肌肉分解）', highlight:true},
-      {icon:'🍱', name:'午餐', detail:'糙米60g + 虾/鸡胸180g + 西兰花', highlight:false},
-      {icon:'🥗', name:'下午加餐', detail:'坚果20g + 苹果/橙子1个', highlight:false},
-      {icon:'🌙', name:'晚餐', detail:'无主食 + 三文鱼/瘦牛肉150g + 大量蔬菜', highlight:false}
-    ],
-    workoutType:'cardio'
-  },
-  { // 周五 5
-    type:'workout', label:'🏋️ 锻炼日', color:'type-workout',
-    title:'腿 + 肩日', desc:'大肌群训练，训练后补充蛋白粉',
-    kcal:1892, carb:185, protein:185, fat:46,
-    meals:[
-      {icon:'🌅', name:'早餐（训练前）', detail:'燕麦80g + 鸡蛋3个 + 牛奶200ml', highlight:false},
-      {icon:'💪', name:'训练后30分钟内', detail:'乳清蛋白粉1勺（约25g蛋白）+ 香蕉1根', highlight:true},
-      {icon:'🍱', name:'午餐', detail:'糙米100g + 鸡胸肉200g + 西兰花/蔬菜不限', highlight:false},
-      {icon:'🌙', name:'晚餐', detail:'红薯80g + 牛肉/三文鱼150g + 绿叶蔬菜', highlight:false}
+      {icon:'💪', name:'训练后30分钟内（晚上）', detail:'乳清蛋白粉1勺（约25g蛋白）+ 香蕉1根', highlight:true},
+      {icon:'🌙', name:'晚餐/训练后餐', detail:'红薯80g + 牛肉/三文鱼150g + 绿叶蔬菜', highlight:false}
     ],
     workoutType:'fri'
   },
-  { // 周六 6
-    type:'cheatday', label:'🍔 放纵餐日', color:'type-cheatday',
-    title:'每周放纵餐', desc:'中午随心吃！早晚正常，补充瘦素防代谢适应',
-    kcal:2400, carb:280, protein:175, fat:65,
+  { // 周六 6 — 有氧（晚上）
+    type:'cardio', label:'🚴 有氧日', color:'type-cardio',
+    title:'有氧训练日', desc:'中等强度有氧30-45分钟，晚上进行，燃脂塑形',
+    kcal:1750, carb:150, protein:175, fat:50,
     meals:[
-      {icon:'🌅', name:'早餐（正常）', detail:'燕麦80g + 鸡蛋3个 + 牛奶200ml · 早餐正常吃', highlight:false},
-      {icon:'🍔', name:'中午 放纵餐 🎉', detail:'随心所欲！火锅、烤肉、拉面、汉堡都行 · 吃饱即止，不要暴饮暴食', highlight:true},
-      {icon:'🌙', name:'晚餐（控制）', detail:'无主食 · 鸡胸/鱼150g + 大量蔬菜 · 晚餐收回来', highlight:false},
-      {icon:'💊', name:'补剂', detail:'睡前酪蛋白1勺，弥补今天蛋白可能不足', highlight:false}
+      {icon:'🌅', name:'早餐', detail:'全麦面包2片 + 鸡蛋2个 + 希腊酸奶150g', highlight:false},
+      {icon:'🍱', name:'午餐', detail:'糙米60g + 虾/鸡胸180g + 西兰花', highlight:false},
+      {icon:'🥗', name:'下午加餐', detail:'坚果20g + 苹果/橙子1个', highlight:false},
+      {icon:'💪', name:'有氧后（晚上）', detail:'乳清蛋白粉半勺 + 低糖水果（防止肌肉分解）', highlight:true},
+      {icon:'🌙', name:'晚餐', detail:'无主食 + 三文鱼/瘦牛肉150g + 大量蔬菜', highlight:false}
     ],
-    workoutType:'sun'
+    workoutType:'cardio'
   }
 ];
 
@@ -544,7 +545,7 @@ var WORKOUT_DATA = {
 var currentDayIdx = new Date().getDay();
 var selectedDayIdx = currentDayIdx;
 var WD = ['周日','周一','周二','周三','周四','周五','周六'];
-var WT = ['全身','胸三头','休息','背二头','有氧','腿肩','放纵'];
+var WT = ['休息','胸三头','有氧','背二头','休息','腿肩','有氧'];
 
 function renderWeekNav() {
   var nav = document.getElementById('weekNav');
@@ -596,24 +597,30 @@ function renderDayContent(idx) {
 
   // 训练
   var wd = WORKOUT_DATA[cfg.workoutType];
-  document.getElementById('workoutCardTitle').textContent = wd.title;
-  var exHtml = '';
-  wd.exercises.forEach(function(ex, i) {
-    exHtml += '<div class="exercise">'
-      + '<div class="ex-num '+wd.color+'">'+(i+1)+'</div>'
-      + '<div class="ex-info">'
-        + '<div class="ex-name">'+ex.name+'</div>'
-        + '<div class="ex-detail">'+ex.detail+'</div>'
-        + '<div class="ex-meta">'
-          + '<span class="ex-sets">'+ex.sets+'</span>'
-          + (ex.bv ? '<button class="ex-video-btn" onclick="openVideo(\''+ex.bv+'\',\''+ex.vtitle+'\')">📺 教学</button>' : '')
+  var workoutCard = document.getElementById('workoutCard');
+  if (!wd) {
+    workoutCard.style.display = 'none';
+  } else {
+    workoutCard.style.display = '';
+    document.getElementById('workoutCardTitle').textContent = wd.title;
+    var exHtml = '';
+    wd.exercises.forEach(function(ex, i) {
+      exHtml += '<div class="exercise">'
+        + '<div class="ex-num '+wd.color+'">'+(i+1)+'</div>'
+        + '<div class="ex-info">'
+          + '<div class="ex-name">'+ex.name+'</div>'
+          + '<div class="ex-detail">'+ex.detail+'</div>'
+          + '<div class="ex-meta">'
+            + '<span class="ex-sets">'+ex.sets+'</span>'
+            + (ex.bv ? '<button class="ex-video-btn" onclick="openVideo(\''+ex.bv+'\',\''+ex.vtitle+'\')">📺 教学</button>' : '')
+          + '</div>'
         + '</div>'
-      + '</div>'
-      + '<div class="ex-check" onclick="toggleCheck(this,\''+idx+'\')"></div>'
-    + '</div>';
-  });
-  document.getElementById('exerciseList').innerHTML = exHtml;
-  updateWorkoutProgress(idx);
+        + '<div class="ex-check" onclick="toggleCheck(this,\''+idx+'\')"></div>'
+      + '</div>';
+    });
+    document.getElementById('exerciseList').innerHTML = exHtml;
+    updateWorkoutProgress(idx);
+  }
 
   // 打卡按钮状态
   renderPunchCards();
